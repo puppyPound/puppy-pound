@@ -6,7 +6,7 @@ const profileSchema = mongoose.Schema({
   firstName: { type: String, required: true },
   lastName: { type: String, required: true },
   breed: { type: String },
-  age: { type: String },
+  age: { type: Number },
   location: { type: String, required: true },
   dogs: [
     {

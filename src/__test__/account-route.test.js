@@ -53,6 +53,7 @@ describe('AUTH Router', () => {
         })
         .then(Promise.reject)
         .catch((error) => {
+          console.log(error);
           expect(error.status).toEqual(409);
         });
     });

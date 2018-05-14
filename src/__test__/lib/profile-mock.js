@@ -33,4 +33,4 @@ const pRemoveProfileMock = () => {
   ]);
 };
 
-export default { pCreateProfileMock, pRemoveProfileMock };
+export { pCreateProfileMock, pRemoveProfileMock };

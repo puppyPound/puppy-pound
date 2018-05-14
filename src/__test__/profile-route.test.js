@@ -25,7 +25,7 @@ describe('/profiles', () => {
             firstName: 'jim',
             lastName: 'garth',
             breed: 'lab',
-            age: '9',
+            age: 9,
             location: '98133',
           });
       })
@@ -34,7 +34,7 @@ describe('/profiles', () => {
         expect(response.body.account).toEqual(accountMock.account._id.toString());
         expect(response.body.firstName).toEqual('jim');
         expect(response.body.lastName).toEqual('garth');
-        expect(response.body.age).toEqual('9');
+        expect(response.body.age).toEqual(9);
         expect(response.body.location).toEqual('98133');
       });
   });
@@ -87,6 +87,7 @@ describe('/profiles', () => {
     let profileToTest = null;
     return pCreateProfileMock()
       .then((profile) => {
+        console.log(profile, 'hello???????');
         profileToTest = profile;
         return superagent.get(`${apiUrl}/profiles/${profile.profile._id}`)
           .set('Authorization', `Bearer ${profile.accountMock.token}`);
