@@ -2,7 +2,7 @@
 
 import HttpError from 'http-errors';
 import jsonWebToken from 'jsonwebtoken';
-import Account from '../model/account';
+import Account from '../models/account';
 
 const promisify = callbackStyleFunction => (...args) => {
   return new Promise((resolve, reject) => {
@@ -26,9 +26,9 @@ export default (request, response, next) => {
     return next(new HttpError(401, 'AUTH - invalid request'));
   }
 
-  return promisify(jsonWebToken.verify)(token, process.env.SOUND_CLOUD_SECRET)
+  return promisify(jsonWebToken.verify)(token, process.env.PUPPY_SECRET)
     .catch((error) => {
-      return Promise.reject(new HttpError(401, `AUTH - jsonWebToken Error ${error}`));
+      Promise.reject(new HttpError(401, `AUTH - jsonWebToken Error ${error}`));
     })
     .then((decryptedToken) => {
       return Account.findOne({ tokenSeed: decryptedToken.tokenSeed });

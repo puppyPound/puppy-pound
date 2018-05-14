@@ -1,7 +1,7 @@
 'use strict';
 
-import { json } from 'body-parser';
 import { Router } from 'express';
+import { json } from 'body-parser';
 import HttpError from 'http-errors';
 import Profile from '../models/profile';
 import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
