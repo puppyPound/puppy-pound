@@ -1,13 +1,13 @@
 'use strict';
 
-import bodyParser from 'body-parser';
 import { Router } from 'express';
+import { json } from 'body-parser';
 import HttpError from 'http-errors';
 import Profile from '../models/profile';
 import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 import logger from '../lib/logger';
 
-const jsonParser = bodyParser.json();
+const jsonParser = json();
 const profileRouter = new Router();
 
 profileRouter.post('/profiles', bearerAuthMiddleware, jsonParser, (request, response, next) => {

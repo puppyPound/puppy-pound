@@ -7,7 +7,7 @@ import { startServer, stopServer } from '../lib/server';
 import { pCreateAccountMock } from './lib/account-mock';
 import { pRemoveProfileMock, pCreateProfileMock } from './lib/profile-mock';
 
-const apiURL = `http://localhost:${process.env.PORT}`;
+const apiUrl = `http://localhost:${process.env.PORT}`;
 
 describe('/profiles', () => {
   beforeAll(startServer);
@@ -19,7 +19,7 @@ describe('/profiles', () => {
     return pCreateAccountMock()
       .then((accountSetMock) => {
         accountMock = accountSetMock;
-        return superagent.post(`${apiURL}/profiles`)
+        return superagent.post(`${apiUrl}/profiles`)
           .set('Authorization', `Bearer ${accountSetMock.token}`)
           .send({
             firstName: 'jim',
@@ -46,7 +46,7 @@ describe('/profiles', () => {
       breed: faker.lorem.words(10),
       age: Math.floor(Math.random() * 16),
     };
-    return superagent.post(`${apiURL}/profiles`)
+    return superagent.post(`${apiUrl}/profiles`)
       .send(profileToPost)
       .then(Promise.reject)
       .catch((response) => {
@@ -62,7 +62,7 @@ describe('/profiles', () => {
       age: Math.floor(Math.random() * 16),
       location: faker.address.zipCode(),
     };
-    return superagent.post(`${apiURL}/badRoute`)
+    return superagent.post(`${apiUrl}/badRoute`)
       .send(profileToPost)
       .then(Promise.reject)
       .catch((response) => {
@@ -73,7 +73,7 @@ describe('/profiles', () => {
   test('POST /profiles should return a 401 status for bad token', () => {
     return pCreateProfileMock()
       .then(() => {
-        return superagent.post(`${apiURL}/profiles`)
+        return superagent.post(`${apiUrl}/profiles`)
           .set('Authorization', 'Bearer ')
           .send({});
       })
@@ -88,7 +88,7 @@ describe('/profiles', () => {
     return pCreateProfileMock()
       .then((profile) => {
         profileToTest = profile;
-        return superagent.get(`${apiURL}/profiles/${profile.profile._id}`)
+        return superagent.get(`${apiUrl}/profiles/${profile.profile._id}`)
           .set('Authorization', `Bearer ${profile.accountMock.token}`);
       })
       .then((response) => {
@@ -100,7 +100,7 @@ describe('/profiles', () => {
   });
 
   test('GET /profiles/:id should respond with 404 if there is no profile found', () => {
-    return superagent.get(`${apiURL}/profile/BadId`)
+    return superagent.get(`${apiUrl}/profile/BadId`)
       .then(Promise.reject)
       .catch((err) => {
         expect(err.status).toEqual(404);
@@ -110,7 +110,7 @@ describe('/profiles', () => {
   test('GET /profiles/:id should respond with 401 status for bad token', () => {
     return pCreateProfileMock()
       .then((profile) => {
-        return superagent.get(`${apiURL}/profiles/${profile.profile._id}`)
+        return superagent.get(`${apiUrl}/profiles/${profile.profile._id}`)
           .set('Authorization', 'Bearer ');
       })
       .then(Promise.reject)
@@ -123,7 +123,7 @@ describe('/profiles', () => {
     test('DELETE /profiles/:id should respond with 204 for successful deletion', () => {
       return pCreateProfileMock()
         .then((profileMock) => {
-          return superagent.delete(`${apiURL}/profiles/${profileMock.profile._id}`)
+          return superagent.delete(`${apiUrl}/profiles/${profileMock.profile._id}`)
             .set('Authorization', `Bearer ${profileMock.accountMock.token}`);
         })
         .then((response) => {
@@ -133,7 +133,7 @@ describe('/profiles', () => {
   });
   
   test('DELETE /profiles/:id should respond with 404 due to no profile found', () => {
-    return superagent.delete(`${apiURL}/profile/BadId`)
+    return superagent.delete(`${apiUrl}/profile/BadId`)
       .then(Promise.reject)
       .catch((err) => {
         expect(err.status).toEqual(404);
@@ -143,7 +143,7 @@ describe('/profiles', () => {
   test('DELETE /profiles/:id should return with 401 status for bad token', () => {
     return pCreateProfileMock()
       .then((profile) => {
-        return superagent.delete(`${apiURL}/profiles/${profile.profile._id}`)
+        return superagent.delete(`${apiUrl}/profiles/${profile.profile._id}`)
           .set('Authorization', 'Bearer ');
       })
       .then(Promise.reject)
