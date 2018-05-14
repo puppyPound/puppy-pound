@@ -3,6 +3,7 @@
 import express from 'express';
 import mongoose from 'mongoose';
 import logger from './logger';
+import accountRoutes from '../routes/account-route';
 import profileRoutes from '../routes/profile-route';
 import loggerMiddleware from './logger-middleware';
 import errorMiddleware from './error-middleware';
@@ -11,6 +12,7 @@ const app = express();
 let server = null;
 
 app.use(loggerMiddleware);
+app.use(accountRoutes);
 app.use(profileRoutes);
 
 app.all('*', (request, response) => {
