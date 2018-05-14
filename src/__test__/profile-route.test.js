@@ -87,10 +87,9 @@ describe('/profiles', () => {
     let profileToTest = null;
     return pCreateProfileMock()
       .then((profile) => {
-        console.log(profile, 'hello???????');
         profileToTest = profile;
         return superagent.get(`${apiUrl}/profiles/${profile.profile._id}`)
-          .set('Authorization', `Bearer ${profile.accountMock.token}`);
+          .set('Authorization', `Bearer ${profile.accountSetMock.token}`);
       })
       .then((response) => {
         expect(response.status).toEqual(200);
@@ -114,7 +113,6 @@ describe('/profiles', () => {
         return superagent.get(`${apiUrl}/profiles/${profile.profile._id}`)
           .set('Authorization', 'Bearer ');
       })
-      .then(Promise.reject)
       .catch((err) => {
         expect(err.status).toEqual(401);
       });
@@ -125,7 +123,7 @@ describe('/profiles', () => {
       return pCreateProfileMock()
         .then((profileMock) => {
           return superagent.delete(`${apiUrl}/profiles/${profileMock.profile._id}`)
-            .set('Authorization', `Bearer ${profileMock.accountMock.token}`);
+            .set('Authorization', `Bearer ${profileMock.accountSetMock.token}`);
         })
         .then((response) => {
           expect(response.status).toEqual(204);

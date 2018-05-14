@@ -45,15 +45,14 @@ describe('AUTH Router', () => {
         .then((mock) => {
           return superagent.post(`${apiUrl}/signup`)
             .send({
-              username: 'Sparky',
-              phoneNumber: mock.account.phoneNumber,
+              username: mock.request.username,
+              phoneNumber: '123-456-1234',
               email: 'sparky@poundpuppy.com',
               password: 'password',
             });
         })
         .then(Promise.reject)
         .catch((error) => {
-          console.log(error);
           expect(error.status).toEqual(409);
         });
     });
