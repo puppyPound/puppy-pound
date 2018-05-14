@@ -2,7 +2,6 @@
 
 import superagent from 'superagent';
 import faker from 'faker';
-import logger from ''
 
 import { startServer, stopServer } from '../lib/server';
 import { pCreateAccountMock } from './lib/account-mock';
