@@ -25,3 +25,12 @@ const pCreateProfileMock = () => {
       return resultMock;
     });
 };
+
+const pRemoveProfileMock = () => {
+  return Promise.all([
+    Profile.remove({}),
+    pRemoveAccountMock(),
+  ]);
+};
+
+export default { pCreateProfileMock, pRemoveProfileMock };
