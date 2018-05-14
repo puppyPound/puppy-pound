@@ -1,7 +1,7 @@
 'use strict';
 
 import HttpError from 'http-errors';
-import Account from '../model/account';
+import Account from '../models/account';
 
 export default (request, response, next) => {
   if (!request.headers.authorization) {

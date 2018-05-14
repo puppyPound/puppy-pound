@@ -1,6 +1,6 @@
 'use strict';
 
-import { json } from 'body-parser';
+import bodyParser from 'body-parser';
 import { Router } from 'express';
 import HttpError from 'http-errors';
 import Account from '../models/account';
@@ -8,7 +8,7 @@ import basicAuthMiddleware from '../lib/basic-auth-middleware';
 import logger from '../lib/logger';
 
 const accountRouter = new Router();
-const jsonParser = json();
+const jsonParser = bodyParser.json();
 
 accountRouter.post('/signup', jsonParser, (request, response, next) => {
   return Account.create(request.body.username, request.body.phoneNumber, request.body.email, request.body.password)
@@ -35,3 +35,5 @@ accountRouter.get('/login', basicAuthMiddleware, (request, response, next) => {
     })
     .catch(next);
 });
+
+export default accountRouter;
