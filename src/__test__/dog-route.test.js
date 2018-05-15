@@ -113,5 +113,26 @@ describe('/dogs', () => {
       });
   });
 
-  
+  test('GET /dogs/:id should return with a 200 status if no errors', () => {
+    let dogToTest = null;
+    return pCreateDogMock()
+      .then((dog) => {
+        dogToTest = dog;
+        return superagent.get(`${apiUrl}/dogs/${dog.dog._id}`);
+      })
+      .then((response) => {
+        expect(response.status).toEqual(200);
+        expect(response.body.firstName).toEqual(dogToTest.dog.firstName);
+        expect(response.body.breed).toEqual(dogToTest.dog.breed);
+        expect(response.body._id).toBeTruthy();
+      });
+  });
+
+  test('GET /dogs/:id should respond with a 404 status code if there is no dog found', () => {
+    return superagent.get(`${apiUrl}/dog/BadId`)
+      .then(Promise.reject)
+      .catch((err) => {
+        expect(err.status).toEqual(404);
+      });
+  });
 });
