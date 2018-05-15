@@ -6,6 +6,7 @@ import logger from './logger';
 import accountRoutes from '../routes/account-route';
 import profileRoutes from '../routes/profile-route';
 import dogRoutes from '../routes/dog-route';
+import shelterRoutes from '../routes/shelter-route';
 import loggerMiddleware from './logger-middleware';
 import errorMiddleware from './error-middleware';
 
@@ -16,6 +17,7 @@ app.use(loggerMiddleware);
 app.use(accountRoutes);
 app.use(profileRoutes);
 app.use(dogRoutes);
+app.use(shelterRoutes);
 
 
 app.all('*', (request, response) => {

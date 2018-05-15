@@ -16,25 +16,25 @@ describe('/dogs', () => {
   jest.setTimeout(4000);
 
   test('POST /dogs should get a 200 and the newly created dog', () => {
-    let shelterMock = null;
+    let dogMock = null;
     return pCreateShelterMock()
-      .then((shelterSetMock) => {
-        shelterMock = shelterSetMock;
+      .then((dogSetMock) => {
+        dogMock = dogSetMock;
         return superagent.post(`${apiUrl}/dogs`)
           .send({
             firstName: 'Rover',
             breed: 'Pit',
-            age: 4,
-            location: '98103',
+            age: '4',
+            location: dogMock.location,
             details: 'This dog it awesome',
           });
       })
       .then((response) => {
         expect(response.status).toEqual(200);
-        expect(response.body.account).toEqual(shelterMock.shelter._id.toString());
+        expect(response.body.account).toEqual(dogMock.shelter._id.toString());
         expect(response.body.firstName).toEqual('Rover');
         expect(response.body.breed).toEqual('Pit');        
-        expect(response.body.age).toEqual(4);
+        expect(response.body.age).toEqual('4');
         expect(response.body.location).toEqual('98103');
         expect(response.body.details).toEqual('This dog is awesome');        
       });
