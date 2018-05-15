@@ -15,9 +15,9 @@ describe('AUTH Router', () => {
     test('POST - 200 - success', () => {
       return superagent.post(`${apiUrl}/signup`)
         .send({
-          username: 'Rover',
-          email: 'rover@poundpuppy.com',
-          phoneNumber: '555-5555',
+          username: 'Bill',
+          email: 'bill@bill.com',
+          phoneNumber: '555-555-5555',
           password: 'password',
         })
         .then((response) => {
@@ -29,8 +29,8 @@ describe('AUTH Router', () => {
     test('POST - 400 - bad request', () => {
       return superagent.post(`${apiUrl}/signup`)
         .send({
-          username: 'Rover',
-          email: 'rover@poundpuppy.com',
+          username: 'Bill',
+          email: 'bill@bill.com',
           password: 'password',
         })
         .then(Promise.reject)
