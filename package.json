@@ -7,7 +7,9 @@
     "test": "eslint . && jest --coverage --forceExit --runInBand",
     "test-nolint": "jest --coverage --forceExit --runInBand",
     "dbon": "mkdir -p ./db && mongod --dbpath ./db",
-    "dboff": "killall mongod"
+    "dboff": "killall mongod",
+    "build": "babel src -d build",
+    "start": "babel src -d build && node index.js"
   },
   "jest": {
     "setupFiles": [
@@ -25,6 +27,7 @@
   },
   "homepage": "https://github.com/puppyPound/puppy-pound#readme",
   "devDependencies": {
+    "babel-cli": "^6.26.0",
     "babel-eslint": "^8.2.3",
     "babel-preset-env": "^1.7.0",
     "babel-register": "^6.26.0",

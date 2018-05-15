@@ -82,6 +82,48 @@ describe('/profiles', () => {
         expect(err.status).toEqual(401);
       });
   });
+
+  test('PUT /profiles/:id should return a 200 and updated profile', () => {
+    let profileToUpdate = null;
+    return pCreateProfileMock()
+      .then((profile) => {
+        profileToUpdate = profile;
+        return superagent.put(`${apiUrl}/profiles/${profile.profile._id}`)
+          .set('Authorization', `Bearer ${profile.token}`)
+          .send({ breed: 'pit' });
+      })
+      .then((response) => {
+        expect(response.status).toEqual(200);
+        expect(response.body.breed).toEqual('pit');
+        expect(response.body.firstName).toEqual(profileToUpdate.profile.firstName);
+        expect(response.body.lastName).toEqual(profileToUpdate.profile.lastName);
+        expect(response.body.age).toEqual(profileToUpdate.profile.age);        
+        expect(response.body.location).toEqual(profileToUpdate.profile.location);
+        expect(response.body._id).toEqual(profileToUpdate.profile._id.toString());
+      });
+  });
+
+  test('PUT /profiles/:id should return a 400 due to lack of breed', () => {
+    return pCreateProfileMock()
+      .then((profile) => {
+        return superagent.put(`${apiUrl}/profiles/${profile.profile._id}`)
+          .send({ breed: '' });
+      })
+      .catch((err) => {
+        expect(err.status).toEqual(400);
+      });
+  });
+
+  test('PUT /profiles/:id should retrn a 409 due to duplicated breed', () => {
+    return pCreateProfileMock()
+      .then((profile) => {
+        return superagent.put(`${apiUrl}/profiles/${profile.profile._id}`)
+          .send({ breed: profile.breed });
+      })
+      .catch((err) => {
+        expect(err.status).toEqual(409);
+      });
+  });
   
   test('GET /profiles/:id should respond with 200 if there are no errors', () => {
     let profileToTest = null;
