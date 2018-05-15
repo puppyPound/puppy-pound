@@ -26,31 +26,37 @@ To start the db and test the routes, from the command line, enter:
 - To create an account, the username, email, phone number, and password is sent to the server utilizing the POST /signup. An authentication token is generated with the password provided. The newly created user account is saved into the database.
 
 ```GET /login```
-- 
+- The user will make a GET request with a required username and password that is then authenticated to retrieve a token that is used for login.
 
 ```POST /profiles```
+- Once the user is authenticated, a POST request is made which creates a new profile that is necessary to establish an identity within the app. This new profile is saved into the database for future use.
 
 ```GET /profiles/:id```
+- For the user to retrieve their profile from the database, a GET request is made that will initiate a search to find their profile specifically by ID.
 
 ```DELETE /profiles/:id```
-
+- If the user wishes to remove their profile from the database, a DELETE request can be made by searching the database for the specific profile by ID which will remove the instance.
 
 
 ## Architecture
 
-JavaScript, Node, Express, MongoDB, Mongoose, Travis, Heroku, superagent, winston, logger, jest, babel, dotenv, body-parser, faker.
+JavaScript, Node, Express, MongoDB, Mongoose, Travis, Heroku, superagent, winston, logger, jest, babel, dotenv, body-parser, crypto, bcrypt, jsonwebtoken, fs-extra, faker.
 
 ## Change Log
 
  * 5-14-2018 9:30am - Initial scaffolding
- * 5-14-2018 10:00am - made first merge into master branch to connect to Travis
- * 5-14-2018 2:00pm - Profile model completed with a mock profile for testing, a profile router (post, get, and delete), and tests for Profile route. Tests not passing and functionality needed.
- * 5-14-2018 2:00pm - Account model completed with a mock profile for testing, an account router (post & get), and tests for Account route. Tests not passing and functionality needed.
+ * 5-14-2018 10:00am - Made first merge into master branch to connect to Travis
+ * 5-14-2018 2:00pm - Profile model completed with a mock Profile model for testing, a Profile router (post, get, and delete), and tests for Profile route. Tests not passing and functionality needed.
+ * 5-14-2018 2:00pm - Account model completed with a mock Account model for testing, an Account router (post & get), and tests for Account route. Tests not passing and functionality needed.
  * 5-14-2018 4:00pm - Resolved Profile and Account route bugs, tests now passing.
+ * 5-14-2018 5:30pm - Dog model completed with a mock Dog model for testing, a Dog router (post, get, put, delete), and tests for Dog route. Test not passing.
+ * 5-15-2018 9:15am - Began testing on Dog model routes and integrating into other schemas
+ * 5-15-2018 9:30am - Began work on Shelter model, mock, router, and tests.
+ * 5-15-2018 1:30pm - Shelter Schema is completed, but not fully functional. It was decided to put that particular implementation on standby as a possible MVP until testing and functionality of other schemas are fully passing.
 
 ## Workflow
 
-![poundpuppy](/assets:/poundpuppy.pdf)
+![poundpuppy](/assets/poundpuppy.pdf)
 
 ## Credits and Collaborations
 
