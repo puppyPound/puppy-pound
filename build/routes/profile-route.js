@@ -10,10 +10,6 @@ var _express = require('express');
 
 var _bodyParser = require('body-parser');
 
-var _httpErrors = require('http-errors');
-
-var _httpErrors2 = _interopRequireDefault(_httpErrors);
-
 var _profile = require('../models/profile');
 
 var _profile2 = _interopRequireDefault(_profile);
@@ -32,10 +28,6 @@ var jsonParser = (0, _bodyParser.json)();
 var profileRouter = new _express.Router();
 
 profileRouter.post('/profiles', _bearerAuthMiddleware2.default, jsonParser, function (request, response, next) {
-  if (!request.account) {
-    return next(new _httpErrors2.default(400, 'AUTH - invalid request'));
-  }
-
   return new _profile2.default(_extends({}, request.body, {
     account: request.account._id
   })).save().then(function (profile) {
@@ -46,10 +38,6 @@ profileRouter.post('/profiles', _bearerAuthMiddleware2.default, jsonParser, func
 
 profileRouter.get('/profiles/:id', function (request, response, next) {
   return _profile2.default.findById(request.params.id).then(function (profile) {
-    if (!profile) {
-      _logger2.default.log(_logger2.default.INFO, 'GET - responding with a 404 status code - (!profile)');
-      return next(new _httpErrors2.default(404, 'profile not found'));
-    }
     _logger2.default.log(_logger2.default.INFO, 'GET - responding with a 200 status code');
     return response.json(profile);
   }).catch(next);
@@ -64,14 +52,7 @@ profileRouter.put('/profiles/:id', jsonParser, function (request, response, next
 });
 
 profileRouter.delete('/profiles/:id', _bearerAuthMiddleware2.default, function (request, response, next) {
-  if (!request.params.id) {
-    return next(new _httpErrors2.default(404, 'PROFILE ROUTE DELETE ERROR: no params id'));
-  }
-  return _profile2.default.findByIdAndRemove(request.params.id).then(function (profile) {
-    if (!profile) {
-      _logger2.default.log(_logger2.default.INFO, 'GET - responding with a 404 status code - (!profile)');
-      return next(new _httpErrors2.default(404, 'profile not found'));
-    }
+  return _profile2.default.findByIdAndRemove(request.params.id).then(function () {
     _logger2.default.log(_logger2.default.INFO, 'DELETE - responding with a 204 status code');
     return response.sendStatus(204);
   }).catch(next);

@@ -5,11 +5,8 @@ import jsonWebToken from 'jsonwebtoken';
 import Account from '../models/account';
 
 const promisify = callbackStyleFunction => (...args) => {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     callbackStyleFunction(...args, (error, data) => {
-      if (error) {
-        return reject(error);
-      }
       return resolve(data);
     });
   });
@@ -27,16 +24,10 @@ export default (request, response, next) => {
   }
 
   return promisify(jsonWebToken.verify)(token, process.env.PUPPY_SECRET)
-    .catch((error) => {
-      Promise.reject(new HttpError(401, `AUTH - jsonWebToken Error ${error}`));
-    })
     .then((decryptedToken) => {
       return Account.findOne({ tokenSeed: decryptedToken.tokenSeed });
     })
     .then((account) => {
-      if (!account) {
-        return next(new HttpError(404, 'AUTH - invalid request'));
-      }
       request.account = account;
       return next();
     })

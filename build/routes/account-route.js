@@ -8,10 +8,6 @@ var _express = require('express');
 
 var _bodyParser = require('body-parser');
 
-var _httpErrors = require('http-errors');
-
-var _httpErrors2 = _interopRequireDefault(_httpErrors);
-
 var _account = require('../models/account');
 
 var _account2 = _interopRequireDefault(_account);
@@ -42,9 +38,6 @@ accountRouter.post('/signup', jsonParser, function (request, response, next) {
 });
 
 accountRouter.get('/login', _basicAuthMiddleware2.default, function (request, response, next) {
-  if (!request.account) {
-    return next(new _httpErrors2.default(400, 'AUTH - Invalid request'));
-  }
   return request.account.pCreateToken().then(function (token) {
     _logger2.default.log(_logger2.default.INFO, 'responding with 200 status and token');
     return response.json({ token: token });

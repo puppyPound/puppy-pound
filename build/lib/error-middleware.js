@@ -22,10 +22,6 @@ exports.default = function (error, request, response, next) {
 
   var errorMessage = error.message.toLowerCase();
 
-  if (errorMessage.includes('objectid failed')) {
-    _logger2.default.log(_logger2.default.INFO, 'Responding with a 404 code');
-    return response.sendStatus(404);
-  }
   if (errorMessage.includes('validation failed')) {
     _logger2.default.log(_logger2.default.INFO, 'Responding with a 400 code');
     return response.sendStatus(400);
@@ -33,10 +29,6 @@ exports.default = function (error, request, response, next) {
   if (errorMessage.includes('duplicate key')) {
     _logger2.default.log(_logger2.default.INFO, 'Responding with a 409 code');
     return response.sendStatus(409);
-  }
-  if (errorMessage.includes('unauthorized')) {
-    _logger2.default.log(_logger2.default.INFO, 'Responding with a 401 code');
-    return response.sendStatus(401);
   }
 
   _logger2.default.log(_logger2.default.ERROR, 'Responding with a 500 error code');

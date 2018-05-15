@@ -1,5 +1,6 @@
-'use strict';
+// 'use strict';
 
-var _server = require('./lib/server');
+// import { startServer } from './lib/server';
 
-(0, _server.startServer)();
+// startServer();
+"use strict";

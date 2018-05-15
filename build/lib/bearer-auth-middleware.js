@@ -24,11 +24,8 @@ var promisify = function promisify(callbackStyleFunction) {
       args[_key] = arguments[_key];
     }
 
-    return new Promise(function (resolve, reject) {
+    return new Promise(function (resolve) {
       callbackStyleFunction.apply(undefined, args.concat([function (error, data) {
-        if (error) {
-          return reject(error);
-        }
         return resolve(data);
       }]));
     });
@@ -46,14 +43,9 @@ exports.default = function (request, response, next) {
     return next(new _httpErrors2.default(401, 'AUTH - invalid request'));
   }
 
-  return promisify(_jsonwebtoken2.default.verify)(token, process.env.PUPPY_SECRET).catch(function (error) {
-    Promise.reject(new _httpErrors2.default(401, 'AUTH - jsonWebToken Error ' + error));
-  }).then(function (decryptedToken) {
+  return promisify(_jsonwebtoken2.default.verify)(token, process.env.PUPPY_SECRET).then(function (decryptedToken) {
     return _account2.default.findOne({ tokenSeed: decryptedToken.tokenSeed });
   }).then(function (account) {
-    if (!account) {
-      return next(new _httpErrors2.default(404, 'AUTH - invalid request'));
-    }
     request.account = account;
     return next();
   }).catch(next);

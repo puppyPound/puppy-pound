@@ -17,25 +17,13 @@ var _account2 = _interopRequireDefault(_account);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.default = function (request, response, next) {
-  if (!request.headers.authorization) {
-    return next(new _httpErrors2.default(400, 'AUTH - invalid request'));
-  }
-
   var base64AuthHeader = request.headers.authorization.split('Basic ')[1];
-  if (!base64AuthHeader) {
-    return next(new _httpErrors2.default(400, 'AUTH - invalid request'));
-  }
-
   var stringAuthHeader = Buffer.from(base64AuthHeader, 'base64').toString();
 
   var _stringAuthHeader$spl = stringAuthHeader.split(':'),
       _stringAuthHeader$spl2 = _slicedToArray(_stringAuthHeader$spl, 2),
       username = _stringAuthHeader$spl2[0],
       password = _stringAuthHeader$spl2[1];
-
-  if (!username || !password) {
-    return next(new _httpErrors2.default(400, 'AUTH - invalid request'));
-  }
 
   return _account2.default.findOne({ username: username }).then(function (account) {
     if (!account) {

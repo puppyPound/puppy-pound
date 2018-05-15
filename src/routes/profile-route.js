@@ -2,7 +2,6 @@
 
 import { Router } from 'express';
 import { json } from 'body-parser';
-import HttpError from 'http-errors';
 import Profile from '../models/profile';
 import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 import logger from '../lib/logger';
@@ -11,10 +10,6 @@ const jsonParser = json();
 const profileRouter = new Router();
 
 profileRouter.post('/profiles', bearerAuthMiddleware, jsonParser, (request, response, next) => {
-  if (!request.account) {
-    return next(new HttpError(400, 'AUTH - invalid request'));
-  }
-
   return new Profile({
     ...request.body,
     account: request.account._id,
@@ -30,10 +25,6 @@ profileRouter.post('/profiles', bearerAuthMiddleware, jsonParser, (request, resp
 profileRouter.get('/profiles/:id', (request, response, next) => {
   return Profile.findById(request.params.id)
     .then((profile) => {
-      if (!profile) {
-        logger.log(logger.INFO, 'GET - responding with a 404 status code - (!profile)');
-        return next(new HttpError(404, 'profile not found'));
-      }
       logger.log(logger.INFO, 'GET - responding with a 200 status code');
       return response.json(profile);
     })
@@ -51,15 +42,8 @@ profileRouter.put('/profiles/:id', jsonParser, (request, response, next) => {
 });
 
 profileRouter.delete('/profiles/:id', bearerAuthMiddleware, (request, response, next) => {
-  if (!request.params.id) {
-    return next(new HttpError(404, 'PROFILE ROUTE DELETE ERROR: no params id'));
-  }
   return Profile.findByIdAndRemove(request.params.id)
-    .then((profile) => {
-      if (!profile) {
-        logger.log(logger.INFO, 'GET - responding with a 404 status code - (!profile)');
-        return next(new HttpError(404, 'profile not found'));
-      }
+    .then(() => {
       logger.log(logger.INFO, 'DELETE - responding with a 204 status code');
       return response.sendStatus(204);
     })

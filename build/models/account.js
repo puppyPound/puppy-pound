@@ -20,10 +20,6 @@ var _jsonwebtoken = require('jsonwebtoken');
 
 var _jsonwebtoken2 = _interopRequireDefault(_jsonwebtoken);
 
-var _httpErrors = require('http-errors');
-
-var _httpErrors2 = _interopRequireDefault(_httpErrors);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var HASH_ROUNDS = 8;
@@ -62,18 +58,13 @@ function pCreateToken() {
     return _jsonwebtoken2.default.sign({
       tokenSeed: account.tokenSeed
     }, process.env.PUPPY_SECRET);
-  }).catch(function () {
-    return new _httpErrors2.default(401, 'Error creating token');
   });
 }
 
 function pVerifyPassword(password) {
   var _this = this;
 
-  return _bcrypt2.default.compare(password, this.passwordHash).then(function (result) {
-    if (!result) {
-      throw new _httpErrors2.default(400, 'AUTH - incorrect data');
-    }
+  return _bcrypt2.default.compare(password, this.passwordHash).then(function () {
     return _this;
   });
 }

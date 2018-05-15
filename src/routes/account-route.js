@@ -2,7 +2,6 @@
 
 import { Router } from 'express';
 import { json } from 'body-parser';
-import HttpError from 'http-errors';
 import Account from '../models/account';
 import basicAuthMiddleware from '../lib/basic-auth-middleware';
 import logger from '../lib/logger';
@@ -25,9 +24,6 @@ accountRouter.post('/signup', jsonParser, (request, response, next) => {
 });
 
 accountRouter.get('/login', basicAuthMiddleware, (request, response, next) => {
-  if (!request.account) {
-    return next(new HttpError(400, 'AUTH - Invalid request'));
-  }
   return request.account.pCreateToken()
     .then((token) => {
       logger.log(logger.INFO, 'responding with 200 status and token');
