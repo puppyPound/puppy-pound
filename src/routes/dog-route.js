@@ -10,13 +10,12 @@ const jsonParser = json();
 const dogRouter = new Router();
 
 dogRouter.post('/dogs', jsonParser, (request, response, next) => {
-  if (!request.shelter) {
-    return next(new HttpError(400, 'POST - invalid request'));
-  }
+  // if (!request.dog) {
+  //   return next(new HttpError(400, 'POST - invalid request'));
+  // }
   
   return new Dog({
     ...request.body,
-    profile: request.profile._id,
   })
     .save()
     .then((dog) => {
