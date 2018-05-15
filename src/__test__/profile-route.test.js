@@ -114,7 +114,7 @@ describe('/profiles', () => {
       });
   });
 
-  test('PUT /profiles/:id should retrn a 409 due to duplicated breed', () => {
+  test('PUT /profiles/:id should return a 409 due to duplicated breed', () => {
     return pCreateProfileMock()
       .then((profile) => {
         return superagent.put(`${apiUrl}/profiles/${profile.profile._id}`)
