@@ -1,8 +1,9 @@
 'use strict';
 
 import superagent from 'superagent';
-// import faker from 'faker';
+import faker from 'faker';
 import { startServer, stopServer } from '../lib/server';
+import { pCreateShelterMock } from './lib/shelter-mock';
 import { pRemoveDogMock, pCreateDogMock } from './lib/dog-mock';
 
 const apiUrl = `http://localhost:${process.env.PORT}`;
@@ -12,35 +13,50 @@ describe('/dogs', () => {
   afterAll(stopServer);
   afterAll(pRemoveDogMock);
 
-  test.only('POST /dogs should get a 200 and the newly created dog', () => {
-    return superagent.post(`${apiUrl}/dogs`)
-      .send({
-        firstName: 'Rover',
-        breed: 'Pit',
-        age: '4',
-        location: '98103',
+  jest.setTimeout(4000);
+
+  test('POST /dogs should get a 200 and the newly created dog', () => {
+    let shelterMock = null;
+    return pCreateShelterMock()
+      .then((shelterSetMock) => {
+        shelterMock = shelterSetMock;
+        return superagent.post(`${apiUrl}/dogs`)
+          .send({
+            firstName: 'Rover',
+            breed: 'Pit',
+            age: 4,
+            location: '98103',
+            details: 'This dog it awesome',
+          });
       })
       .then((response) => {
         expect(response.status).toEqual(200);
+        expect(response.body.account).toEqual(shelterMock.shelter._id.toString());
+        expect(response.body.firstName).toEqual('Rover');
+        expect(response.body.breed).toEqual('Pit');        
+        expect(response.body.age).toEqual(4);
+        expect(response.body.location).toEqual('98103');
+        expect(response.body.details).toEqual('This dog is awesome');        
       });
   });
 
-  test('POST - 400 - bad request', () => {
-    return superagent.post(`${apiUrl}/dogs`)
-      .send({
-        firstName: 'Rover',
-        breed: 'Pit',
-        age: '4',
-        location: '98103',
-      })
+  test('POST /dogs should return a 404 status code for bad route', () => {
+    const dogToPost = {
+      firstName: faker.name.firstName(),
+      breed: faker.lorem.words(2),
+      age: Math.floor(Math.random() * 16),
+      location: faker.address.zipCode(),
+      details: faker.lorem.words(15),
+    };
+    return superagent.post(`${apiUrl}/badRoute`)
+      .send(dogToPost)
       .then(Promise.reject)
       .catch((response) => {
-        expect(response.status).toEqual(400);
-        expect(response.body).toBeFalsy();
+        expect(response.status).toEqual(404);
       });
   });
 
-  test('POST - 409 - duplicate keys', () => {
+  test('POST /dogs should return a 409 status code for duplicate keys', () => {
     return pCreateDogMock()
       .then((mock) => {
         return superagent.post(`${apiUrl}/dogs`)
@@ -55,4 +71,47 @@ describe('/dogs', () => {
         expect(error.status).toEqual(409);
       });
   });
+
+  test('PUT /dogs/:id should return a 200 and an updated dog', () => {
+    let dogToUpdate = null;
+    return pCreateDogMock()
+      .then((dog) => {
+        dogToUpdate = dog;
+        return superagent.put(`${apiUrl}/dogs/${dog.dog._id}`)
+          .send({ breed: 'Pit' });
+      })
+      .then((response) => {
+        expect(response.status).toEqual(200);
+        expect(response.body.breed).toEqual('pit');        
+        expect(response.body.firstName).toEqual(dogToUpdate.profile.firstName);
+        expect(response.body.age).toEqual(dogToUpdate.profile.age);
+        expect(response.body.location).toEqual(dogToUpdate.profile.location);
+        expect(response.body.details).toEqual(dogToUpdate.profile.details);
+        expect(response.body._id).toEqual(dogToUpdate.dog._id.toString());        
+      });
+  });
+
+  test('PUT /dogs/:id should return a 400 due to lack of breed', () => {
+    return pCreateDogMock()
+      .then((dog) => {
+        return superagent.put(`${apiUrl}/dogs/${dog.dog._id}`)
+          .send({ breed: '' });
+      })
+      .catch((err) => {
+        expect(err.status).toEqual(400);
+      });
+  });
+
+  test('PUT /dogs/:id should return a 409 due to duplicate name', () => {
+    return pCreateDogMock()
+      .then((dog) => {
+        return superagent.put(`${apiUrl}/dogs/${dog.dog._id}`)
+          .send({ firstName: dog.firstName });
+      })
+      .catch((err) => {
+        expect(err.status).toEqual(409);
+      });
+  });
+
+  
 });

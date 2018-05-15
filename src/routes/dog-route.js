@@ -4,13 +4,16 @@ import { Router } from 'express';
 import { json } from 'body-parser';
 import HttpError from 'http-errors';
 import Dog from '../models/dog';
-import bearerAuthMiddleware from '../lib/bearer-auth-middleware';
 import logger from '../lib/logger';
 
 const jsonParser = json();
 const dogRouter = new Router();
 
-dogRouter.post('/dogs', bearerAuthMiddleware, (request, response, next) => {
+dogRouter.post('/dogs', jsonParser, (request, response, next) => {
+  if (!request.shelter) {
+    return next(new HttpError(400, 'POST - invalid request'));
+  }
+  
   return new Dog({
     ...request.body,
     profile: request.profile._id,
@@ -46,7 +49,7 @@ dogRouter.put('/dogs/:id', jsonParser, (request, response, next) => {
     .catch(next);
 });
 
-dogRouter.delete('/dogs/:id', bearerAuthMiddleware, (request, response, next) => {
+dogRouter.delete('/dogs/:id', (request, response, next) => {
   if (!request.params.id) {
     return next(new HttpError(404, 'no params id'));
   }

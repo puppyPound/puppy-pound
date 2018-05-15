@@ -11,6 +11,8 @@ describe('AUTH Router', () => {
   afterAll(stopServer);
   afterEach(pRemoveAccountMock);
 
+  jest.setTimeout(4000);
+
   describe('POST to /signup', () => {
     test('POST - 200 - success', () => {
       return superagent.post(`${apiUrl}/signup`)

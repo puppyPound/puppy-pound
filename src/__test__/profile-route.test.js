@@ -14,6 +14,8 @@ describe('/profiles', () => {
   afterAll(stopServer);
   afterEach(pRemoveProfileMock);
 
+  jest.setTimeout(4000);
+
   test('POST /profiles should get a 200 and the newly created profile', () => {
     let accountMock = null;
     return pCreateAccountMock()
@@ -114,7 +116,7 @@ describe('/profiles', () => {
       });
   });
 
-  test('PUT /profiles/:id should retrn a 409 due to duplicated breed', () => {
+  test('PUT /profiles/:id should return a 409 due to duplicated breed', () => {
     return pCreateProfileMock()
       .then((profile) => {
         return superagent.put(`${apiUrl}/profiles/${profile.profile._id}`)

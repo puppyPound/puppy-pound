@@ -7,7 +7,8 @@ const dogSchema = mongoose.Schema({
   breed: { type: String, required: true },
   age: { type: String, required: true },
   location: { type: String, required: true },
-  profile: {
+  details: { type: String },
+  shelter: {
     type: mongoose.Schema.ObjectId,
     required: true,
     unique: true,
