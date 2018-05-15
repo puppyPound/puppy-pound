@@ -8,12 +8,12 @@ import { pRemoveDogMock, pCreateDogMock } from './lib/dog-mock';
 
 const apiUrl = `http://localhost:${process.env.PORT}`;
 
+jest.setTimeout(3000);
+
 describe('/dogs', () => {
   beforeAll(startServer);
   afterAll(stopServer);
   afterAll(pRemoveDogMock);
-
-  jest.setTimeout(4000);
 
   test('POST /dogs should get a 200 and the newly created dog', () => {
     let shelterMock = null;
@@ -130,6 +130,24 @@ describe('/dogs', () => {
 
   test('GET /dogs/:id should respond with a 404 status code if there is no dog found', () => {
     return superagent.get(`${apiUrl}/dog/BadId`)
+      .then(Promise.reject)
+      .catch((err) => {
+        expect(err.status).toEqual(404);
+      });
+  });
+
+  test('DELETE /dogs/:id should respond with a 204 status code for successful deletion', () => {
+    return pCreateDogMock()
+      .then((dogMock) => {
+        return superagent.delete(`${apiUrl}/dogs/${dogMock.dog._id}`);
+      })
+      .then((response) => {
+        expect(response.status).toEqual(204);
+      });
+  });
+
+  test('DELETE /dogs/:id should respond with a 404 status code due to no profile found', () => {
+    return superagent.delete(`${apiUrl}/dog/BadId`)
       .then(Promise.reject)
       .catch((err) => {
         expect(err.status).toEqual(404);

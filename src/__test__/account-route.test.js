@@ -59,6 +59,7 @@ describe('AUTH Router', () => {
         });
     });
   }); 
+  
   describe('GET from /login', () => {
     test('GET - 200 success', () => {
       return pCreateAccountMock()
@@ -83,6 +84,7 @@ describe('AUTH Router', () => {
           expect(response.body).toBeFalsy();
         });
     });
+
     test('GET /login should respond with 404 status code', () => {
       return superagent.get(`${apiUrl}/login/puppy`)
         .then(Promise.reject)

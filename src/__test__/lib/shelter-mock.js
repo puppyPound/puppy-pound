@@ -6,8 +6,8 @@ import Shelter from '../../models/shelter';
 const pCreateShelterMock = () => {
   const mock = {};
   mock.request = {
-    name: faker.internet.name(),
-    location: faker.internet.location(),
+    name: faker.name.firstName(),
+    location: faker.address.zipCode(),
   };
   return Shelter.create(mock.request.name, mock.request.location) // eslint-disable-line
     .then((shelter) => {
