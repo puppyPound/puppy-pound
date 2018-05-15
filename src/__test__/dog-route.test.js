@@ -3,12 +3,9 @@
 import superagent from 'superagent';
 import faker from 'faker';
 import { startServer, stopServer } from '../lib/server';
-import { pCreateShelterMock } from './lib/shelter-mock';
 import { pRemoveDogMock, pCreateDogMock } from './lib/dog-mock';
 
 const apiUrl = `http://localhost:${process.env.PORT}`;
-
-jest.setTimeout(3000);
 
 describe('/dogs', () => {
   beforeAll(startServer);
@@ -16,27 +13,21 @@ describe('/dogs', () => {
   afterAll(pRemoveDogMock);
 
   test('POST /dogs should get a 200 and the newly created dog', () => {
-    let shelterMock = null;
-    return pCreateShelterMock()
-      .then((shelterSetMock) => {
-        shelterMock = shelterSetMock;
-        return superagent.post(`${apiUrl}/dogs`)
-          .send({
-            firstName: 'Rover',
-            breed: 'Pit',
-            age: 4,
-            location: '98103',
-            details: 'This dog it awesome',
-          });
+    return superagent.post(`${apiUrl}/dogs`)
+      .send({
+        firstName: 'Rover',
+        breed: 'Pit',
+        age: '5',
+        location: '98103',
+        details: 'rover is cool beans',
       })
       .then((response) => {
         expect(response.status).toEqual(200);
-        expect(response.body.account).toEqual(shelterMock.shelter._id.toString());
         expect(response.body.firstName).toEqual('Rover');
         expect(response.body.breed).toEqual('Pit');        
-        expect(response.body.age).toEqual(4);
+        expect(response.body.age).toEqual('5');
         expect(response.body.location).toEqual('98103');
-        expect(response.body.details).toEqual('This dog is awesome');        
+        expect(response.body.details).toEqual('rover is cool beans');        
       });
   });
 
@@ -63,7 +54,9 @@ describe('/dogs', () => {
           .send({
             firstName: mock.request.firstName,
             breed: 'Pit',
-            age: '4',
+            age: 4,
+            location: '98133',
+            details: 'Everything is awesome!',
           });
       })
       .then(Promise.reject)
@@ -75,26 +68,26 @@ describe('/dogs', () => {
   test('PUT /dogs/:id should return a 200 and an updated dog', () => {
     let dogToUpdate = null;
     return pCreateDogMock()
-      .then((dog) => {
-        dogToUpdate = dog;
-        return superagent.put(`${apiUrl}/dogs/${dog.dog._id}`)
-          .send({ breed: 'Pit' });
+      .then((mock) => {
+        dogToUpdate = mock;
+        return superagent.put(`${apiUrl}/dogs/${mock.dog._id}`)
+          .send({ breed: 'Bulldog' });
       })
       .then((response) => {
         expect(response.status).toEqual(200);
-        expect(response.body.breed).toEqual('pit');        
-        expect(response.body.firstName).toEqual(dogToUpdate.profile.firstName);
-        expect(response.body.age).toEqual(dogToUpdate.profile.age);
-        expect(response.body.location).toEqual(dogToUpdate.profile.location);
-        expect(response.body.details).toEqual(dogToUpdate.profile.details);
+        expect(response.body.breed).toEqual('Bulldog');        
+        expect(response.body.firstName).toEqual(dogToUpdate.dog.firstName);
+        expect(response.body.age).toEqual(dogToUpdate.dog.age);
+        expect(response.body.location).toEqual(dogToUpdate.dog.location);
+        expect(response.body.details).toEqual(dogToUpdate.dog.details);
         expect(response.body._id).toEqual(dogToUpdate.dog._id.toString());        
       });
   });
 
   test('PUT /dogs/:id should return a 400 due to lack of breed', () => {
     return pCreateDogMock()
-      .then((dog) => {
-        return superagent.put(`${apiUrl}/dogs/${dog.dog._id}`)
+      .then((mock) => {
+        return superagent.put(`${apiUrl}/dogs/${mock.dog._id}`)
           .send({ breed: '' });
       })
       .catch((err) => {

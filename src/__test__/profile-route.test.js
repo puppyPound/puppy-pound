@@ -14,8 +14,6 @@ describe('/profiles', () => {
   afterAll(stopServer);
   afterEach(pRemoveProfileMock);
 
-  jest.setTimeout(4000);
-
   test('POST /profiles should get a 200 and the newly created profile', () => {
     let accountMock = null;
     return pCreateAccountMock()

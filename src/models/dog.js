@@ -8,11 +8,18 @@ const dogSchema = mongoose.Schema({
   age: { type: String, required: true },
   location: { type: String, required: true },
   details: { type: String },
-  shelter: {
-    type: mongoose.Schema.ObjectId,
-    required: true,
-    unique: true,
-  },
-}, { usePushEach: true });
+});
 
-export default mongoose.model('dog', dogSchema);
+const Dog = mongoose.model('dog', dogSchema);
+
+Dog.create = (firstName, breed, age, details, location) => {
+  return new Dog({
+    firstName,
+    breed,
+    age,
+    details,
+    location,
+  }).save();
+};
+
+export default Dog;

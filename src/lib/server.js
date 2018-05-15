@@ -17,7 +17,6 @@ app.use(accountRoutes);
 app.use(profileRoutes);
 app.use(dogRoutes);
 
-
 app.all('*', (request, response) => {
   logger.log(logger.INFO, 'Returning a 404 from the catch-all/default route');
   return response.sendStatus(404);
