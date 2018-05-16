@@ -8,9 +8,28 @@
 
 This app focuses on the problem domain of providing the user with data of availabilty of dogs for adoption at a specified shelter. The app is built with a RESTful HTTP server that utilizes basic authentication using Express. An account and login is created through basic and bearer authentication. A password is hashed from bcrypt, crypto is used to create a token seed, and a json web token is used to generate the token. Mongoose and MongoDB are used for the Schema and database functionality. 
 
+## Running Locally:
+
+- You will need a Twilio number
+
+- In you .env file:
+
+ * PORT: defaults to 3000
+ * NODE_ENV: set to development
+ * MONGODB_URI: set to mongodb://localhost/testing
+ * PUPPY_SECRET: set to long randomized sequence of alphanumeric characters
+ * TWILIO_ACCOUNT_SID: check Twilio account for reference
+ * TWILIO_AUTH_TOKEN check Twilio account for reference
+ * TWILIO_NUMBER: check Twilio account for reference
+ * MY_NUMBER: personal phone number for testing purposes
+
 ## Getting Started
 
-Install dependencies. 
+To install dependencies, run:
+
+```npm i```
+
+```nodemon``` or ```npm start``` This will start the server and tell you what port you're on
 
 To start the db and test the routes, from the command line, enter:
 
@@ -19,6 +38,7 @@ To start the db and test the routes, from the command line, enter:
 ```npm run test``` Enter this line in a separate command line tab. This initiates the tests via jest
 
 ```npm run dboff``` This turns off MongoDB
+
 
 ## Documentation
 
@@ -40,7 +60,7 @@ To start the db and test the routes, from the command line, enter:
 
 ## Architecture
 
-JavaScript, Node, Express, MongoDB, Mongoose, Travis, Heroku, superagent, winston, logger, jest, babel, dotenv, body-parser, crypto, bcrypt, jsonwebtoken, fs-extra, faker.
+JavaScript, Node, Express, MongoDB, Mongoose, Travis, Twilio, Heroku, superagent, winston, logger, jest, babel, dotenv, body-parser, crypto, bcrypt, jsonwebtoken, fs-extra, faker.
 
 ## Change Log
 
@@ -53,11 +73,10 @@ JavaScript, Node, Express, MongoDB, Mongoose, Travis, Heroku, superagent, winsto
  * 5-15-2018 9:15am - Began testing on Dog model routes and integrating into other schemas
  * 5-15-2018 9:30am - Began work on Shelter model, mock, router, and tests.
  * 5-15-2018 1:30pm - Shelter Schema is completed, but not fully functional. It was decided to put that particular implementation on standby as a possible MVP until testing and functionality of other schemas are fully passing.
+ * 5-15-2018 
 
 ## Workflow
 
-![poundpuppy](/assets/poundpuppy.pdf)
+![poundpuppy](/assets:/model-relationship-diagram.png)
 
-## Credits and Collaborations
-
-TA Seth Donohue
+![poundpuppy](/assets:/poundpuppy-workflow.png)
