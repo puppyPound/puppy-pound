@@ -77,6 +77,6 @@ JavaScript, Node, Express, MongoDB, Mongoose, Travis, Twilio, Heroku, superagent
 
 ## Workflow
 
-![poundpuppy](/assets:/model-relationship-diagram.png)
+![model-relationship-diagram](https://user-images.githubusercontent.com/35154014/40142951-f440fa6a-590e-11e8-91db-80821871886f.png)
 
-![poundpuppy](/assets:/poundpuppy-workflow.png)
+![poundpuppy-workflow](https://user-images.githubusercontent.com/35154014/40142952-f4585ca0-590e-11e8-8401-65a2b1efdca8.png)
