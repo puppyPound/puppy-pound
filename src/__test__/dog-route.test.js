@@ -22,6 +22,7 @@ describe('/dogs', () => {
         details: 'rover is cool beans',
       })
       .then((response) => {
+        console.log(response.body);
         expect(response.status).toEqual(200);
         expect(response.body.firstName).toEqual('Rover');
         expect(response.body.breed).toEqual('Pit');        
