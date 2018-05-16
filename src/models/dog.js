@@ -1,5 +1,6 @@
 'use strict';
 
+import Twilio from 'twilio';
 import mongoose from 'mongoose';
 import HttpError from 'http-errors';
 import Profile from './profile';
@@ -19,8 +20,16 @@ function dogPreHook(done) {
         throw new HttpError(404, 'profiles not found');
       }
       for (let i = 0; i < profiles.length; i++) {
-        profiles[i].dogs.push(this._id);
-        profiles[i].save();
+        if (this.location === profiles[i].location) {
+          if (this.breed === profiles[i].breed || !profiles[i].breed) {
+            if (this.age === profiles[i].age || !profiles[i].age) {
+              console.log(this);
+              console.log(profiles[i].dogs);
+              profiles[i].dogs.push(this._id);
+              profiles[i].save();
+            }
+          }
+        }
       }
     })
     .then(() => done())
@@ -33,6 +42,7 @@ const dogPostHook = (document, done) => {
       if (!profiles) {
         throw new HttpError(500, 'profiles not found');
       }
+      console.log(this);
       for (let i = 0; i < profiles.length; i++) {
         profiles[i].dogs = profiles[i].dogs.filter((dog) => {
           return dog._id.toString() !== document._id.toString();

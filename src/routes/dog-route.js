@@ -47,9 +47,12 @@ dogRouter.get('/dogs/:id', (request, response, next) => {
 });
 
 dogRouter.put('/dogs/:id', jsonParser, (request, response, next) => {
-  const options = { runValidators: true, new: true };
-  return Dog.findByIdAndUpdate(request.params.id, request.body, options)
+  console.log(request.body);
+  console.log(request.params);
+  // const options = { runValidators: true, new: true };
+  return Dog.findByIdAndUpdate(request.params.id, request.body)
     .then((updatedDog) => {
+      console.log(updatedDog);
       logger.log(logger.INFO, 'PUT - responding with a 200 status code');
       return response.json(updatedDog);
     })
@@ -66,8 +69,8 @@ dogRouter.delete('/dogs/:id', (request, response, next) => {
         logger.log(logger.INFO, 'DELETE - responding with a 404 status code - (!dog)');
         return next(new HttpError(404, 'dog not found'));
       }
-      logger.log(logger.INFO, 'DELETE - responding with a 204 status code');
-      return response.sendStatus(204);
+      logger.log(logger.INFO, 'DELETE - responding with a 204 status code, dog deleted');
+      return response.status(204).send('Dog Deleted');
     })
     .catch(next);
 });
