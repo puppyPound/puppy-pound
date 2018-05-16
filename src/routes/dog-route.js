@@ -23,7 +23,7 @@ dogRouter.post('/dogs', jsonParser, (request, response, next) => {
         body: `A dog named ${dog.firstName} is available for adoption in ${dog.location}`,
       })
         .then((message) => {
-          logger.log(logger.INFO, `A text notification has been sent to ${process.env.MY_NUMBER}: ${message}`);
+          logger.log(logger.INFO, `A text has been sent to a user: ${JSON.stringify(message)}`);
         })
         .done();
 
