@@ -25,6 +25,10 @@ var _profileRoute = require('../routes/profile-route');
 
 var _profileRoute2 = _interopRequireDefault(_profileRoute);
 
+var _dogRoute = require('../routes/dog-route');
+
+var _dogRoute2 = _interopRequireDefault(_dogRoute);
+
 var _loggerMiddleware = require('./logger-middleware');
 
 var _loggerMiddleware2 = _interopRequireDefault(_loggerMiddleware);
@@ -41,6 +45,7 @@ var server = null;
 app.use(_loggerMiddleware2.default);
 app.use(_accountRoute2.default);
 app.use(_profileRoute2.default);
+app.use(_dogRoute2.default);
 
 app.all('*', function (request, response) {
   _logger2.default.log(_logger2.default.INFO, 'Returning a 404 from the catch-all/default route');

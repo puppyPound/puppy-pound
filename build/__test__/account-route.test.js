@@ -54,6 +54,7 @@ describe('AUTH Router', function () {
       });
     });
   });
+
   describe('GET from /login', function () {
     test('GET - 200 success', function () {
       return (0, _accountMock.pCreateAccountMock)().then(function (mock) {
@@ -72,6 +73,7 @@ describe('AUTH Router', function () {
         expect(response.body).toBeFalsy();
       });
     });
+
     test('GET /login should respond with 404 status code', function () {
       return _superagent2.default.get(apiUrl + '/login/puppy').then(Promise.reject).catch(function (response) {
         expect(response.status).toEqual(404);

@@ -101,7 +101,7 @@ describe('/profiles', function () {
     });
   });
 
-  test('PUT /profiles/:id should retrn a 409 due to duplicated breed', function () {
+  test('PUT /profiles/:id should return a 409 due to duplicated breed', function () {
     return (0, _profileMock.pCreateProfileMock)().then(function (profile) {
       return _superagent2.default.put(apiUrl + '/profiles/' + profile.profile._id).send({ breed: profile.breed });
     }).catch(function (err) {
