@@ -198,5 +198,7 @@ $RECYCLE.BIN/
 *.lnk
 
 db/
+src/__test__/lib/test.env.js
+build/
 
 # End of https://www.gitignore.io/api/node,macos,linux,windows,webstorm,visualstudiocode
