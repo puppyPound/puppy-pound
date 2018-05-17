@@ -13,7 +13,7 @@ const dogSchema = mongoose.Schema({
   breed: { type: String, required: true },
   age: { type: String, required: true },
   location: { type: String, required: true },
-  details: { type: String },
+  details: { type: String, required: true },
 });
 
 function sendText(dog, profile) {
