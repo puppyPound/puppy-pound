@@ -1,6 +1,15 @@
 # Pound Puppy
 
 [![travisbuild](https://img.shields.io/travis/mario4821/puppy-pound.svg)](https://travis-ci.org/puppyPound/puppy-pound)
+[![Coveralls](https://coveralls.io/repos/github/mario4821/puppy-pound/badge.svg?branch=master)](https://github.com/puppyPound/puppy-pound)
+![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)
+![GitHub pull requests](https://img.shields.io/github/issues-pr/cdnjs/cdnjs.svg)
+![GitHub top language](https://img.shields.io/github/languages/top/badges/shields.svg)
+![GitHub contributors](https://img.shields.io/github/contributors/cdnjs/cdnjs.svg)
+
+
+
+
 
 **Author**: Josiah Green, Kris Sakarias, Lacy Hogan, Mario Flores Jr.
 
