@@ -14,6 +14,7 @@ const pCreateProfileMock = () => {
       return new Profile({
         lastName: faker.name.lastName(),
         firstName: faker.name.firstName(),
+        phoneNumber: '12345',
         breed: faker.lorem.words(10),
         age: Math.floor(Math.random() * 16).toString(),
         location: faker.address.zipCode(),
