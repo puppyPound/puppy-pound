@@ -8,10 +8,9 @@ const pCreateAccountMock = () => {
   mock.request = {
     username: faker.internet.userName(),
     email: faker.internet.email(),
-    phoneNumber: faker.phone.phoneNumber(),
     password: faker.lorem.words(5),
   };
-  return Account.create(mock.request.username, mock.request.email, mock.request.phoneNumber, mock.request.password) // eslint-disable-line
+  return Account.create(mock.request.username, mock.request.email, mock.request.password) // eslint-disable-line
     .then((account) => {
       mock.account = account;
       return account.pCreateToken();

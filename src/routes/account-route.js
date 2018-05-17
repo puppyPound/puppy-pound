@@ -11,7 +11,7 @@ const accountRouter = new Router();
 const jsonParser = json();
 
 accountRouter.post('/signup', jsonParser, (request, response, next) => {
-  return Account.create(request.body.username, request.body.email, request.body.phoneNumber, request.body.password) // eslint-disable-line
+  return Account.create(request.body.username, request.body.email, request.body.password) // eslint-disable-line
     .then((account) => {
       delete request.body.password;
       logger.log(logger.INFO, 'AUTH - creating token');

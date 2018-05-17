@@ -8,7 +8,7 @@ const profileSchema = mongoose.Schema({
   breed: { type: String },
   age: { type: String },
   location: { type: String, required: true },
-  phoneNumber: { type: String, required: true },
+  phoneNumber: { type: String, required: true, unique: true },
   dogs: [
     {
       type: mongoose.Schema.Types.ObjectId, ref: 'dogs',
