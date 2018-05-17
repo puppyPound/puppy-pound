@@ -62,7 +62,3 @@ JavaScript, Node, Express, MongoDB, Mongoose, Travis, Heroku, superagent, winsto
 
 TA Seth Donohue
 
-
-
-
-http POST http://localhost:3000/dogs firstName="fido2233" breed="lab" location="98199" age="3"
