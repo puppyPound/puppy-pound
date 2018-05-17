@@ -7,8 +7,8 @@ const pCreateDogMock = () => {
   const mock = {};
   mock.request = {
     firstName: faker.name.firstName(),
-    breed: faker.lorem.words(10),
-    age: Math.floor(Math.random() * 16),
+    breed: faker.lorem.words(2),
+    age: faker.lorem.words(1),
     details: faker.lorem.words(50),
     location: faker.address.zipCode(),
   };
