@@ -57,10 +57,11 @@ const dogPostHook = (document, done) => {
         throw new HttpError(500, 'profiles not found');
       }
       for (let i = 0; i < profiles.length; i++) {
-        profiles[i].dogs = profiles[i].dogs.filter((dog) => {
-          return dog._id.toString() !== document._id.toString();
-        });
+        profiles[i].dogs = profiles[i].dogs
+          .filter(dog => dog.toString() !== document._id.toString());
+        profiles[i].save();
       }
+      return undefined;
     })
     .then(() => done())
     .catch(done);
