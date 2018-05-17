@@ -17,7 +17,7 @@ describe('/dogs', () => {
       .send({
         firstName: 'Rover',
         breed: 'Pit',
-        age: '5',
+        age: 'puppy',
         location: '98103',
         details: 'rover is cool beans',
       })
@@ -26,7 +26,7 @@ describe('/dogs', () => {
         expect(response.status).toEqual(200);
         expect(response.body.firstName).toEqual('Rover');
         expect(response.body.breed).toEqual('Pit');        
-        expect(response.body.age).toEqual('5');
+        expect(response.body.age).toEqual('puppy');
         expect(response.body.location).toEqual('98103');
         expect(response.body.details).toEqual('rover is cool beans');        
       });
@@ -36,7 +36,7 @@ describe('/dogs', () => {
     const dogToPost = {
       firstName: faker.name.firstName(),
       breed: faker.lorem.words(2),
-      age: Math.floor(Math.random() * 16),
+      age: faker.lorem.words(1),
       location: faker.address.zipCode(),
       details: faker.lorem.words(15),
     };
@@ -55,7 +55,7 @@ describe('/dogs', () => {
           .send({
             firstName: mock.request.firstName,
             breed: 'Pit',
-            age: 4,
+            age: 'puppy',
             location: '98133',
             details: 'Everything is awesome!',
           });

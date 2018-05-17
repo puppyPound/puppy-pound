@@ -67,7 +67,7 @@ dogRouter.delete('/dogs/:id', (request, response, next) => {
         return next(new HttpError(404, 'dog not found'));
       }
       logger.log(logger.INFO, 'DELETE - responding with a 204 status code');
-      return response.sendStatus(204);
+      return response.sendStatus(204, 'dog deleted');
     })
     .catch(next);
 });
