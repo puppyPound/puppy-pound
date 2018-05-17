@@ -1,5 +1,15 @@
 # Pound Puppy
 
+<p align="center">
+    <img src="https://rawgit.com/badges/shields/master/static/logo.svg"
+        height="130">
+</p>
+<p align="center">
+   <a href="https://github.com/badges/shields/compare/gh-pages...master">
+        <img src="https://img.shields.io/github/commits-since/badges/shields/gh-pages.svg?label=commits%20to%20be%20deployed"
+            alt="commits to be deployed"></a>
+            </p>
+
 **Author**: Josiah Green, Kris Sakarias, Lacy Hogan, Mario Flores Jr.
 
 **Version**: 1.0.0

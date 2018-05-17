@@ -38,7 +38,6 @@ dogRouter.put('/dogs/:id', jsonParser, (request, response, next) => {
   const options = { runValidators: true, new: true };
   return Dog.findByIdAndUpdate(request.params.id, request.body, options)
     .then((updatedDog) => {
-      console.log(updatedDog);
       logger.log(logger.INFO, 'PUT - responding with a 200 status code');
       return response.json(updatedDog);
     })
