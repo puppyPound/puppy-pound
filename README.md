@@ -6,6 +6,7 @@
 [![David](https://img.shields.io/david/expressjs/express.svg)](https://github.com/puppyPound/puppy-pound)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://github.com/puppyPound/puppy-pound)
 
+![puppyPound](src/assets:/puppyPound.png)
 
 **Author**: Josiah Green, Kris Sakarias, Lacy Hogan, Mario Flores Jr.
 
