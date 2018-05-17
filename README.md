@@ -1,6 +1,6 @@
 # Pound Puppy
 
-[![travisbuild](https://img.shields.io/travis/mario4821/puppy-pound.svg)(https://travis-ci.org/puppyPound/puppy-pound)]
+[![travisbuild](https://img.shields.io/travis/mario4821/puppy-pound.svg)](https://travis-ci.org/puppyPound/puppy-pound)
 
 **Author**: Josiah Green, Kris Sakarias, Lacy Hogan, Mario Flores Jr.
 
