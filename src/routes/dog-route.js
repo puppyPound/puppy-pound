@@ -1,6 +1,5 @@
 'use strict';
 
-// import Twilio from 'twilio';
 import { Router } from 'express';
 import { json } from 'body-parser';
 import HttpError from 'http-errors';
@@ -9,7 +8,6 @@ import logger from '../lib/logger';
 
 const jsonParser = json();
 const dogRouter = new Router();
-// const client = new Twilio(process.env.accountSid, process.env.authToken);
 
 dogRouter.post('/dogs', jsonParser, (request, response, next) => { 
   return new Dog({
@@ -17,16 +15,6 @@ dogRouter.post('/dogs', jsonParser, (request, response, next) => {
   })
     .save()
     .then((dog) => {
-      // client.messages.create({
-      //   to: process.env.MY_NUMBER,
-      //   from: process.env.TWILIO_NUMBER,
-      //   body: `A dog named ${dog.firstName} is available for adoption in ${dog.location}`,
-      // })
-      //   .then((message) => {
-      //     logger.log(logger.INFO, `A text has been sent to a user: ${JSON.stringify(message)}`);
-      //   })
-      //   .done();
-
       logger.log(logger.INFO, 'POST - responding with a 200 status code and a new Dog');
       return response.json(dog);
     })
