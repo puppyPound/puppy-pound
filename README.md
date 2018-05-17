@@ -1,11 +1,6 @@
 # Pound Puppy
 
-</p>
-<p align="center">
-   <a href="https://github.com/badges/shields/compare/gh-pages...master">
-        <img src="https://img.shields.io/travis/USER/REPO.svg"
-            alt="commits to be deployed"></a>
-            </p>
+![travisbuild][(https://img.shields.io/travis/mario4821/puppy-pound.svg?style=flat-square)](https://travis-ci.org/puppyPound/puppy-pound)
 
 **Author**: Josiah Green, Kris Sakarias, Lacy Hogan, Mario Flores Jr.
 
