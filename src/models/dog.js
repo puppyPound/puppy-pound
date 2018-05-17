@@ -16,9 +16,9 @@ const dogSchema = mongoose.Schema({
   details: { type: String },
 });
 
-function sendText(dog, profile) {
+function sendText(dog) {
   client.messages.create({
-    to: profile.phoneNumber,
+    to: '+16193228610',
     from: process.env.TWILIO_NUMBER,
     body: `A dog named ${dog.firstName} is available for adoption in ${dog.location}`,
   })
@@ -38,9 +38,7 @@ function dogPreHook(done) {
         if (this.location === profiles[i].location) {
           if (this.breed === profiles[i].breed || !profiles[i].breed) {
             if (this.age === profiles[i].age || !profiles[i].age) {
-              sendText(this, profiles[i]);
-              console.log(this);
-              console.log(profiles[i].dogs);
+              sendText(this);
               profiles[i].dogs.push(this._id);
               profiles[i].save();
             }

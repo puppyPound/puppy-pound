@@ -93,7 +93,7 @@ describe('/profiles', () => {
       .then((profile) => {
         profileToUpdate = profile;
         return superagent.put(`${apiUrl}/profiles/${profile.profile._id}`)
-          .set('Authorization', `Bearer ${profile.token}`)
+          .set('Authorization', `Bearer ${profileToUpdate.accountSetMock.token}`)
           .send({ breed: 'pit' });
       })
       .then((response) => {
@@ -111,6 +111,7 @@ describe('/profiles', () => {
     return pCreateProfileMock()
       .then((profile) => {
         return superagent.put(`${apiUrl}/profiles/${profile.profile._id}`)
+          .set('Authorization', `Bearer ${profile.accountSetMock.token}`)
           .send({ breed: '' });
       })
       .catch((err) => {
@@ -122,6 +123,7 @@ describe('/profiles', () => {
     return pCreateProfileMock()
       .then((profile) => {
         return superagent.put(`${apiUrl}/profiles/${profile.profile._id}`)
+          .set('Authorization', `Bearer ${profile.accountSetMock.token}`)
           .send({ breed: profile.breed });
       })
       .catch((err) => {
