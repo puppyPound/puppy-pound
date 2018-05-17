@@ -9,7 +9,7 @@ import logger from '../lib/logger';
 const client = new Twilio(process.env.accountSid, process.env.authToken);
 
 const dogSchema = mongoose.Schema({
-  firstName: { type: String, required: true, unique: true },
+  firstName: { type: String, required: true },
   breed: { type: String, required: true },
   age: { type: String, required: true },
   location: { type: String, required: true },
@@ -23,7 +23,7 @@ function sendText(dog, profile) {
     body: `A dog named ${dog.firstName} is available for adoption in ${dog.location}`,
   })
     .then((message) => {
-      logger.log(logger.INFO, `A text has been sent to a user: ${JSON.stringify(message)}`);
+      logger.log(logger.INFO, `A text has been sent to a user: ${JSON.stringify(message.body)}`);
     })
     .done();
 }
