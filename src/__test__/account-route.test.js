@@ -17,7 +17,6 @@ describe('AUTH Router', () => {
         .send({
           username: 'Rover',
           email: 'rover@poundpuppy.com',
-          phoneNumber: '555-5555',
           password: 'password',
         })
         .then((response) => {
@@ -30,7 +29,6 @@ describe('AUTH Router', () => {
       return superagent.post(`${apiUrl}/signup`)
         .send({
           username: 'Rover',
-          email: 'rover@poundpuppy.com',
           password: 'password',
         })
         .then(Promise.reject)
@@ -46,7 +44,6 @@ describe('AUTH Router', () => {
           return superagent.post(`${apiUrl}/signup`)
             .send({
               username: mock.request.username,
-              phoneNumber: '123-456-1234',
               email: 'sparky@poundpuppy.com',
               password: 'password',
             });

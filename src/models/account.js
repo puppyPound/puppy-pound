@@ -20,11 +20,6 @@ const accountSchema = mongoose.Schema({
     required: true,
     unique: true,
   },
-  phoneNumber: {
-    type: String,
-    required: true,
-    unique: true,
-  },
   passwordHash: {
     type: String,
     required: true,
@@ -62,7 +57,7 @@ accountSchema.methods.pVerifyPassword = pVerifyPassword;
 
 const Account = mongoose.model('account', accountSchema);
 
-Account.create = (username, email, phoneNumber, password) => {
+Account.create = (username, email, password) => {
   return bcrypt.hash(password, HASH_ROUNDS)
     .then((passwordHash) => {
     password = null; //eslint-disable-line
@@ -70,7 +65,6 @@ Account.create = (username, email, phoneNumber, password) => {
       return new Account({
         username,
         email,
-        phoneNumber,
         passwordHash,
         tokenSeed,
       }).save();
