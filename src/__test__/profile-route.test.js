@@ -26,6 +26,7 @@ describe('/profiles', () => {
             lastName: 'garth',
             breed: 'lab',
             age: 'puppy',
+            phoneNumber: '12345',
             location: '98133',
           });
       })
@@ -35,6 +36,7 @@ describe('/profiles', () => {
         expect(response.body.firstName).toEqual('jim');
         expect(response.body.lastName).toEqual('garth');
         expect(response.body.age).toEqual('puppy');
+        expect(response.body.phoneNumber).toEqual('12345');
         expect(response.body.location).toEqual('98133');
       });
   });
@@ -43,6 +45,7 @@ describe('/profiles', () => {
     const profileToPost = {
       lastName: faker.name.lastName(),
       firstName: faker.name.firstName(),
+      phoneNumber: '12345',
       breed: faker.lorem.words(10),
       age: faker.lorem.words(2),
     };
@@ -60,6 +63,7 @@ describe('/profiles', () => {
       firstName: faker.name.firstName(),
       breed: faker.lorem.words(2),
       age: faker.lorem.words(1),
+      phoneNumber: '12345',
       location: faker.address.zipCode(),
     };
     return superagent.post(`${apiUrl}/badRoute`)

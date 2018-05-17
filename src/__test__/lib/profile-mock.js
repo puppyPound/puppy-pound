@@ -16,6 +16,7 @@ const pCreateProfileMock = () => {
         firstName: faker.name.firstName(),
         breed: faker.lorem.words(2),
         age: faker.lorem.words(1),
+        phoneNumber: '12345',
         location: faker.address.zipCode(),
         account: accountSetMock.account._id,
       }).save();
