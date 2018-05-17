@@ -2,10 +2,10 @@
 
 [![travisbuild](https://img.shields.io/travis/mario4821/puppy-pound.svg)](https://travis-ci.org/puppyPound/puppy-pound)
 [![Coveralls](https://coveralls.io/repos/github/mario4821/puppy-pound/badge.svg?branch=master)](https://github.com/puppyPound/puppy-pound)
-![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)
-![GitHub pull requests](https://img.shields.io/github/issues-pr/cdnjs/cdnjs.svg)
-![GitHub top language](https://img.shields.io/github/languages/top/badges/shields.svg)
-![GitHub contributors](https://img.shields.io/github/contributors/cdnjs/cdnjs.svg)
+[![GitHub pull requests](https://img.shields.io/github/issues-pr/cdnjs/cdnjs.svg)](https://github.com/puppyPound/puppy-pound)
+[![GitHub top language](https://img.shields.io/github/languages/top/badges/shields.svg)](https://github.com/puppyPound/puppy-pound)
+[![GitHub contributors](https://img.shields.io/github/contributors/cdnjs/cdnjs.svg)](https://github.com/puppyPound/puppy-pound)
+[![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)](https://github.com/puppyPound/puppy-pound)
 
 
 
