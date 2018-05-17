@@ -47,24 +47,6 @@ describe('/dogs', () => {
       });
   });
 
-  test('POST /dogs should return a 409 status code for duplicate keys', () => {
-    return pCreateDogMock()
-      .then((mock) => {
-        return superagent.post(`${apiUrl}/dogs`)
-          .send({
-            firstName: mock.request.firstName,
-            breed: 'Pit',
-            age: 'puppy',
-            location: '98133',
-            details: 'Everything is awesome!',
-          });
-      })
-      .then(Promise.reject)
-      .catch((error) => {
-        expect(error.status).toEqual(409);
-      });
-  });
-
   test('PUT /dogs/:id should return a 200 and an updated dog', () => {
     let dogToUpdate = null;
     return pCreateDogMock()
