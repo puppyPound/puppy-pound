@@ -16,9 +16,9 @@ const dogSchema = mongoose.Schema({
   details: { type: String },
 });
 
-function sendText(dog) {
+function sendText(dog, profile) {
   client.messages.create({
-    to: '+16193228610',
+    to: profile.phoneNumber,
     from: process.env.TWILIO_NUMBER,
     body: `A dog named ${dog.firstName} is available for adoption in ${dog.location}`,
   })
@@ -38,7 +38,7 @@ function dogPreHook(done) {
         if (this.location === profiles[i].location) {
           if (this.breed === profiles[i].breed || !profiles[i].breed) {
             if (this.age === profiles[i].age || !profiles[i].age) {
-              sendText(this);
+              sendText(this, profiles[i]);
               profiles[i].dogs.push(this._id);
               profiles[i].save();
             }
@@ -56,7 +56,6 @@ const dogPostHook = (document, done) => {
       if (!profiles) {
         throw new HttpError(500, 'profiles not found');
       }
-      console.log(this);
       for (let i = 0; i < profiles.length; i++) {
         profiles[i].dogs = profiles[i].dogs.filter((dog) => {
           return dog._id.toString() !== document._id.toString();
