@@ -55,6 +55,7 @@ dogRouter.delete('/dogs/:id', (request, response, next) => {
         logger.log(logger.INFO, 'DELETE - responding with a 404 status code - (!dog)');
         return next(new HttpError(404, 'dog not found'));
       }
+
       logger.log(logger.INFO, 'DELETE - responding with a 204 status code, dog deleted');
       return response.status(204).send('Dog Deleted');
     })

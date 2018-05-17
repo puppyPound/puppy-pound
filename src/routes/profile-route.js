@@ -40,7 +40,7 @@ profileRouter.get('/profiles/:id', (request, response, next) => {
     .catch(next);
 });
 
-profileRouter.put('/profiles/:id', jsonParser, (request, response, next) => {
+profileRouter.put('/profiles/:id', bearerAuthMiddleware, jsonParser, (request, response, next) => {
   const options = { runValidators: true, new: true };
   return Profile.findByIdAndUpdate(request.params.id, request.body, options)
     .then((updatedProfile) => {
