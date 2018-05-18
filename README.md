@@ -62,7 +62,7 @@ To start the db and test the routes, from the command line, enter:
 - Once the user is authenticated, a POST request is made which creates a new profile that is necessary to establish an identity within the app. This new profile is saved into the database for future use.
 
   - CLI (Windows) :
-  ```http POST http://localhost:3000/profiles Authorization:"Bearer [token]" firstName= lastName= phoneNumber= breed= age= location= account=[account id]```
+  ```http POST http://localhost:3000/profiles Authorization:"Bearer [token]" firstName= lastName= phoneNumber= breed= age= location= account=[account id]```*
 
 ```GET /profiles/:id```
 - For the user to retrieve their profile from the database, a GET request is made that will initiate a search to find their profile specifically by ID.
@@ -108,9 +108,15 @@ To start the db and test the routes, from the command line, enter:
 - Age range reference: 
 ```DogAge = Puppy(< 1), Youth(1-4), Adult(4-7), Mature(7+)```
 
+** Mac users - when authenticating with a bearer token, wrap the bearer token in single quote instead of double quotes.
+
 ## Architecture
 
 JavaScript, Node, Express, MongoDB, Mongoose, Travis, Twilio, Heroku, superagent, winston, logger, jest, babel, dotenv, body-parser, crypto, bcrypt, jsonwebtoken, fs-extra, faker.
+
+## Latency Testing
+
+![latencytest](src/assets:/latency-test.png)
 
 ## Change Log
 
@@ -129,6 +135,7 @@ JavaScript, Node, Express, MongoDB, Mongoose, Travis, Twilio, Heroku, superagent
  * 5-16-2018 5:00pm - Achieved successful functionality to send alert text messages to users based on user preference.
  * 5-17-2018 10:00am - PUT tests for /profile and GET for /login resolved.
  * 5-17-2018 11:30am - Resolved bug with Dog instance adding into Profile array correctly.
+ * 5-17-2018 4:00pm - Latency testing completed.
 
 
 ## Workflow
