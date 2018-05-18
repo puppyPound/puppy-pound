@@ -22,7 +22,6 @@ describe('/dogs', () => {
         details: 'rover is cool beans',
       })
       .then((response) => {
-        console.log(response.body);
         expect(response.status).toEqual(200);
         expect(response.body.firstName).toEqual('Rover');
         expect(response.body.breed).toEqual('Pit');        
@@ -45,24 +44,6 @@ describe('/dogs', () => {
       .then(Promise.reject)
       .catch((response) => {
         expect(response.status).toEqual(404);
-      });
-  });
-
-  test('POST /dogs should return a 409 status code for duplicate keys', () => {
-    return pCreateDogMock()
-      .then((mock) => {
-        return superagent.post(`${apiUrl}/dogs`)
-          .send({
-            firstName: mock.request.firstName,
-            breed: 'Pit',
-            age: 'puppy',
-            location: '98133',
-            details: 'Everything is awesome!',
-          });
-      })
-      .then(Promise.reject)
-      .catch((error) => {
-        expect(error.status).toEqual(409);
       });
   });
 
